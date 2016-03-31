@@ -1,0 +1,173 @@
+<!--
+  ~ Copyright 2015-2016 RayFantasy Studio
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<notices>
+    <notice>
+        <name>Android Compatibility Library v4</name>
+        <url>http://source.android.com</url>
+        <copyright>Copyright(C) 2015 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android Compatibility Library v7</name>
+        <url>http://source.android.com</url>
+        <copyright>Copyright(C) 2015 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android Design Library</name>
+        <url>http://source.android.com</url>
+        <copyright>Copyright(C) 2015 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Apache Commons Collections</name>
+        <url>http://commons.apache.org/proper/commons-collections/</url>
+        <copyright>Copyright(C) 2001-2014 The Apache Software Foundation</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>TextDrawable</name>
+        <url>https://github.com/amulyakhare/TextDrawable</url>
+        <copyright>Copyright (c) 2014 Amulya Khare</copyright>
+        <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>LikeButton</name>
+        <url>https://github.com/jd-alexander/LikeButton</url>
+        <copyright>Copyright 2016 Joel Dean</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>GpuImage</name>
+        <url>https://github.com/CyberAgent/android-gpuimage</url>
+        <copyright>Copyright 2012 CyberAgent, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Laekcanary</name>
+        <url>https://github.com/square/leakcanary</url>
+        <copyright>Copyright 2015 Square, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>SlidingUpPanel</name>
+        <url>https://github.com/Cheesebaron/SlidingUpPanel</url>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Google Gson</name>
+        <url>https://github.com/google/gson/</url>
+        <copyright>Copyright 2008-2011 Google Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Glide</name>
+        <url>https://github.com/bumptech/glide</url>
+        <copyright>Copyright 2014 Google, Inc. All rights reserved.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>okhttp</name>
+        <url>http://square.github.io/okhttp/</url>
+        <copyright>Copyright 2013 Square, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>AppIntro</name>
+        <url>https://github.com/PaoloRotolo/AppIntro</url>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>recyclerview-animators</name>
+        <url>https://github.com/wasabeef/recyclerview-animators/</url>
+        <copyright>Copyright 2015 Wasabeef</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Advanced RecyclerView</name>
+        <url>https://github.com/h6ah4i/android-advancedrecyclerview</url>
+        <copyright>Copyright (C) 2015 Haruki Hasegawa</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>anko</name>
+        <url>https://github.com/Kotlin/anko</url>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>kotlin</name>
+        <url>http://kotlinlang.org/</url>
+        <copyright>Copyright 2010-2015 JetBrains s.r.o.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>HighlightTextEditor</name>
+        <url>https://github.com/evilbinary/HighlightTextEditor</url>
+        <copyright>Copyright (C) 2015 evilbinary.</copyright>
+        <license>GNU General Public License 3.0</license>
+    </notice>
+    <notice>
+        <name>UCrop</name>
+        <url>https://github.com/Yalantis/uCrop</url>
+        <copyright>Copyright 2016, Yalantis</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Fab Transformation</name>
+        <url>https://github.com/konifar/fab-transformation</url>
+        <copyright>Copyright (c) 2015 Yusuke Konishi</copyright>
+        <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>Glide Transformations</name>
+        <url>https://github.com/wasabeef/glide-transformations</url>
+        <copyright>Copyright 2015 Wasabeef</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Asynchronous Http Client for Android</name>
+        <url>http://loopj.com/android-async-http/</url>
+        <copyright>Copyright (c) 2011-2015 James Smith (james@loopj.com)</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android Volley</name>
+        <url>https://github.com/mcxiaoke/android-volley</url>
+        <copyright>Copyright (C) 2014,2015,2016 Xiaoke Zhang
+            Copyright (C) 2011 The Android Open Source Project
+        </copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>DBFlow</name>
+        <url>https://github.com/Raizlabs/DBFlow</url>
+        <copyright>Copyright (c) 2014 Raizlabs</copyright>
+        <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>material-menu</name>
+        <url>https://github.com/balysv/material-menu/</url>
+        <copyright>Copyright 2014 Balys Valentukevicius</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android Multidex Support Library</name>
+        <url>http://source.android.com</url>
+        <copyright>Copyright (c) 2008-2011 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+</notices>
