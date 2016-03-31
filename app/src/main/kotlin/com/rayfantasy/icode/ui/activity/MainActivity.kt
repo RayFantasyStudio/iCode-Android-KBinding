@@ -21,10 +21,13 @@ import android.app.Fragment
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
+import com.benny.library.kbinding.annotation.Command
 import com.benny.library.kbinding.annotation.Property
 import com.benny.library.kbinding.view.setContentView
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.theme.ThemeModel
+import com.rayfantasy.icode.ui.fragment.AboutFragment
 import com.rayfantasy.icode.ui.fragment.CodeListFragment
 import com.rayfantasy.icode.ui.layout.MainActivityUI
 import org.jetbrains.anko.configuration
@@ -45,6 +48,7 @@ class MainActivity : ActivityBase() {
     }
 
     val codeListFragment by lazy { CodeListFragment() }
+    val aboutFragment by lazy { AboutFragment() }
 
     @delegate:Property
     var fragment by Delegates.property<Fragment>(codeListFragment)
@@ -52,6 +56,14 @@ class MainActivity : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MainActivityUI().setContentView(this).bindTo(this)
+    }
+
+    @Command
+    fun changeFragment(item: MenuItem) {
+        when (item.itemId) {
+            R.id.nav_home -> fragment = codeListFragment
+            R.id.nav_about -> fragment = aboutFragment
+        }
     }
 
     override fun onResume() {

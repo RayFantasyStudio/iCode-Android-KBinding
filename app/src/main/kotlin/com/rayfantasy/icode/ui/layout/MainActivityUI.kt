@@ -30,6 +30,7 @@ import com.rayfantasy.icode.extension.dimenAttr
 import com.rayfantasy.icode.extension.generateViewId
 import com.rayfantasy.icode.extension.lparams
 import com.rayfantasy.icode.kbinding.fragment
+import com.rayfantasy.icode.kbinding.itemSelected
 import com.rayfantasy.icode.theme.colorPrimary
 import com.rayfantasy.icode.theme.colorPrimaryDark
 import com.rayfantasy.icode.theme.observe
@@ -92,6 +93,8 @@ class MainActivityUI : ViewBinderComponent<MainActivity> {
 
             navigationView {
                 fitsSystemWindows = true
+                inflateMenu(R.menu.nv_menu)
+                bind { itemSelected("changeFragment") { drawer.closeDrawer(this) } }
             }.lparams(wrapContent, matchParent) {
                 gravity = GravityCompat.START
             }
