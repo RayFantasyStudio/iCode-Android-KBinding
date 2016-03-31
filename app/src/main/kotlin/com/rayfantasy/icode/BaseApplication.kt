@@ -17,7 +17,6 @@
 package com.rayfantasy.icode
 
 import android.app.Application
-import android.content.Context
 import android.content.pm.PackageManager
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.rayfantasy.icode.postutil.PostUtil

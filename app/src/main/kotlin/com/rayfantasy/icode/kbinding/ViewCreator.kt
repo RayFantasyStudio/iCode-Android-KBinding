@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.extra
+package com.rayfantasy.icode.kbinding
 
 import android.view.View
 import android.view.ViewGroup

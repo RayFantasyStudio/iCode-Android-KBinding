@@ -38,6 +38,9 @@ import org.jetbrains.anko.design._AppBarLayout
 import org.jetbrains.anko.design._CoordinatorLayout
 import org.jetbrains.anko.design.`$$Anko$Factories$DesignViewGroup`
 import org.jetbrains.anko.internals.AnkoInternals
+import org.jetbrains.anko.support.v4._DrawerLayout
+import org.jetbrains.anko.support.v4.`$$Anko$Factories$SupportV4ViewGroup`
+import java.util.concurrent.atomic.AtomicInteger
 
 fun collapseModePin(): CollapsingToolbarLayout.LayoutParams.() -> Unit = { collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN }
 
@@ -98,6 +101,13 @@ inline fun ViewManager.coordinatorLayout(@StyleRes theme: Int, init: _Coordinato
 
 fun ViewManager.fitedCoordinatorLayout(init: _CoordinatorLayout.() -> Unit) = coordinatorLayout(R.style.FitedStyle, init)
 
+fun ViewManager.drawerLayout(@StyleRes theme: Int) = drawerLayout(theme, {})
+inline fun ViewManager.drawerLayout(@StyleRes theme: Int, init: _DrawerLayout.() -> Unit): _DrawerLayout {
+    return ankoView(theme, `$$Anko$Factories$SupportV4ViewGroup`.DRAWER_LAYOUT, init)
+}
+
+fun ViewManager.fitedDrawerLayout(init: _DrawerLayout.() -> Unit) = drawerLayout(R.style.FitedStyle, init)
+
 fun ViewManager.cardView(@StyleRes theme: Int, init: CardView.() -> Unit) = ankoView(theme, ::CardView, init)
 
 inline fun <T : View> ViewManager.ankoView(@StyleRes theme: Int, factory: (ctx: Context) -> T, init: T.() -> Unit): T {
@@ -122,4 +132,22 @@ fun <T : View> T.lparams(
     layoutParams.init()
     this@lparams.layoutParams = layoutParams
     return this
+}
+
+private val nextGeneratedId = AtomicInteger(1)
+
+fun generateViewId(): Int {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        return View.generateViewId()
+    } else {
+        while (true) {
+            val result = nextGeneratedId.get();
+            // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+            var newValue = result + 1;
+            if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
+            if (nextGeneratedId.compareAndSet(result, newValue)) {
+                return result;
+            }
+        }
+    }
 }
