@@ -19,16 +19,11 @@ package com.rayfantasy.icode.ui.layout
 import android.os.Build
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.View
 import com.benny.library.kbinding.dsl.bind
 import com.benny.library.kbinding.view.ViewBinderComponent
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.extension.appBarLayout
-import com.rayfantasy.icode.extension.dimenAttr
-import com.rayfantasy.icode.extension.generateViewId
-import com.rayfantasy.icode.extension.lparams
+import com.rayfantasy.icode.extension.*
 import com.rayfantasy.icode.kbinding.fragment
 import com.rayfantasy.icode.kbinding.itemSelected
 import com.rayfantasy.icode.theme.colorPrimary
@@ -39,7 +34,6 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7.toolbar
 import org.jetbrains.anko.design.coordinatorLayout
 import org.jetbrains.anko.design.navigationView
-import org.jetbrains.anko.support.v4.drawerLayout
 
 class MainActivityUI : ViewBinderComponent<MainActivity> {
     companion object {
@@ -48,21 +42,10 @@ class MainActivityUI : ViewBinderComponent<MainActivity> {
 
     override fun builder(): AnkoContext<*>.() -> Unit = {
         val activity = owner as MainActivity
-        drawerLayout {
+        fittedDrawerLayout {
             val drawer = this
-            fitsSystemWindows = true
             configuration(sdk = Build.VERSION_CODES.KITKAT) { fitsSystemWindows = false }
-            configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
-                observe(colorPrimaryDark) { setStatusBarBackgroundColor(it) }
-                systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                setOnApplyWindowInsetsListener({ view, insets ->
-                    val draw = insets.systemWindowInsetTop > 0
-                    if (view is DrawerLayout) {
-                        view.setChildInsets(insets, draw)
-                    }
-                    return@setOnApplyWindowInsetsListener insets.consumeSystemWindowInsets()
-                })
-            }
+            observe(colorPrimaryDark) { setStatusBarBackgroundColor(it) }
 
             coordinatorLayout {
 

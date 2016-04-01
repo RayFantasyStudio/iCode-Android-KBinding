@@ -24,6 +24,7 @@ import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.view.ContextThemeWrapper
 import android.support.v7.widget.CardView
 import android.util.TypedValue
@@ -34,6 +35,7 @@ import com.rayfantasy.icode.R
 import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7._Toolbar
 import org.jetbrains.anko.appcompat.v7.`$$Anko$Factories$AppcompatV7ViewGroup`
+import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.design._AppBarLayout
 import org.jetbrains.anko.design._CoordinatorLayout
 import org.jetbrains.anko.design.`$$Anko$Factories$DesignViewGroup`
@@ -101,12 +103,21 @@ inline fun ViewManager.coordinatorLayout(@StyleRes theme: Int, init: _Coordinato
 
 fun ViewManager.fitedCoordinatorLayout(init: _CoordinatorLayout.() -> Unit) = coordinatorLayout(R.style.FitedStyle, init)
 
-fun ViewManager.drawerLayout(@StyleRes theme: Int) = drawerLayout(theme, {})
-inline fun ViewManager.drawerLayout(@StyleRes theme: Int, init: _DrawerLayout.() -> Unit): _DrawerLayout {
-    return ankoView(theme, `$$Anko$Factories$SupportV4ViewGroup`.DRAWER_LAYOUT, init)
+inline fun ViewManager.fittedDrawerLayout(init: _DrawerLayout.() -> Unit)
+        = ankoView(`$$Anko$Factories$SupportV4ViewGroup`.DRAWER_LAYOUT) {
+    fitsSystemWindows = true
+    context.configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
+        systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        setOnApplyWindowInsetsListener({ view, insets ->
+            val draw = insets.systemWindowInsetTop > 0
+            if (view is DrawerLayout) {
+                view.setChildInsets(insets, draw)
+            }
+            return@setOnApplyWindowInsetsListener insets.consumeSystemWindowInsets()
+        })
+    }
+    init()
 }
-
-fun ViewManager.fitedDrawerLayout(init: _DrawerLayout.() -> Unit) = drawerLayout(R.style.FitedStyle, init)
 
 fun ViewManager.cardView(@StyleRes theme: Int, init: CardView.() -> Unit) = ankoView(theme, ::CardView, init)
 
