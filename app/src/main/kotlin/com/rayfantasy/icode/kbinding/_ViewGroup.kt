@@ -18,6 +18,7 @@ package com.rayfantasy.icode.kbinding
 
 import android.app.Activity
 import android.app.Fragment
+import android.view.View
 import android.view.ViewGroup
 import com.benny.library.kbinding.bind.oneWayPropertyBinding
 import com.benny.library.kbinding.converter.EmptyOneWayConverter1
@@ -31,7 +32,7 @@ fun ViewGroup.fragment(vararg paths: String, converter: OneWayConverter<*, Fragm
 private fun fragment(container: ViewGroup) = Action1<Fragment> {
     val ctx = container.context
     if (ctx is Activity) {
-        if (container.id == -1)
+        if (container.id == View.NO_ID)
             container.id = generateViewId()
         val transaction = ctx.fragmentManager.beginTransaction()
         transaction.replace(container.id, it).commit()
