@@ -31,6 +31,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewManager
 import android.widget.LinearLayout
+import com.like.LikeButton
 import com.rayfantasy.icode.R
 import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7._Toolbar
@@ -162,3 +163,4 @@ fun generateViewId(): Int {
         }
     }
 }
+fun ViewManager.likeButton(init: LikeButton.() -> Unit) = ankoView(::LikeButton, init)

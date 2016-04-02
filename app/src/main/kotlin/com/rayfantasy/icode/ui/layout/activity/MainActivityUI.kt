@@ -14,9 +14,10 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.ui.layout
+package com.rayfantasy.icode.ui.layout.activity
 
 import android.os.Build
+import android.provider.Contacts
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -31,6 +32,7 @@ import com.rayfantasy.icode.theme.colorPrimary
 import com.rayfantasy.icode.theme.colorPrimaryDark
 import com.rayfantasy.icode.theme.observe
 import com.rayfantasy.icode.ui.activity.MainActivity
+import com.rayfantasy.icode.ui.layout.extra.NVhead
 import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7.toolbar
 import org.jetbrains.anko.design.coordinatorLayout

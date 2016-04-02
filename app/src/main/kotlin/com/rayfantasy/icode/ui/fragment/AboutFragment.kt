@@ -19,15 +19,16 @@ package com.rayfantasy.icode.ui.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.rayfantasy.icode.ui.layout.fragment.AboutFragmentUI
 import org.jetbrains.anko.UI
 import org.jetbrains.anko.frameLayout
 import org.jetbrains.anko.textView
 
 class AboutFragment : FragmentBase() {
+
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) = UI {
-        frameLayout {
-            textView("AboutFragment")
-        }
+        AboutFragmentUI().createView(this)
     }.view
 
 }

@@ -30,7 +30,8 @@ import com.rayfantasy.icode.R
 import com.rayfantasy.icode.theme.ThemeModel
 import com.rayfantasy.icode.ui.fragment.AboutFragment
 import com.rayfantasy.icode.ui.fragment.CodeListFragment
-import com.rayfantasy.icode.ui.layout.MainActivityUI
+import com.rayfantasy.icode.ui.fragment.FavoriteFragment
+import com.rayfantasy.icode.ui.layout.activity.MainActivityUI
 import org.jetbrains.anko.configuration
 import kotlin.properties.Delegates
 
@@ -50,6 +51,8 @@ class MainActivity : ActivityBase() {
 
     val codeListFragment by lazy { CodeListFragment() }
     val aboutFragment by lazy { AboutFragment() }
+    val favoriteFragment by lazy { FavoriteFragment() }
+
 
     @delegate:Property
     var fragment by Delegates.property<Fragment>(codeListFragment)
@@ -67,6 +70,7 @@ class MainActivity : ActivityBase() {
         when (item.itemId) {
             R.id.nav_home -> fragment = codeListFragment
             R.id.nav_about -> fragment = aboutFragment
+            R.id.nav_favo -> fragment = favoriteFragment
         }
         openedDrawer = Gravity.NO_GRAVITY
     }
