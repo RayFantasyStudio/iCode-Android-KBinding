@@ -26,6 +26,7 @@ import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.*
 import com.rayfantasy.icode.kbinding.fragment
 import com.rayfantasy.icode.kbinding.itemSelected
+import com.rayfantasy.icode.kbinding.openedDrawer
 import com.rayfantasy.icode.theme.colorPrimary
 import com.rayfantasy.icode.theme.colorPrimaryDark
 import com.rayfantasy.icode.theme.observe
@@ -38,6 +39,7 @@ import org.jetbrains.anko.design.navigationView
 class MainActivityUI : ViewBinderComponent<MainActivity> {
     companion object {
         val ID_CONTAINER = generateViewId()
+        const val NAVIGATION_VIEW_GRAVITY = GravityCompat.START
     }
 
     override fun builder(): AnkoContext<*>.() -> Unit = {
@@ -46,6 +48,7 @@ class MainActivityUI : ViewBinderComponent<MainActivity> {
             val drawer = this
             configuration(sdk = Build.VERSION_CODES.KITKAT) { fitsSystemWindows = false }
             observe(colorPrimaryDark) { setStatusBarBackgroundColor(it) }
+            bind { openedDrawer("openedDrawer") }
 
             coordinatorLayout {
 
@@ -77,9 +80,9 @@ class MainActivityUI : ViewBinderComponent<MainActivity> {
             navigationView {
                 fitsSystemWindows = true
                 inflateMenu(R.menu.nv_menu)
-                bind { itemSelected("changeFragment") { drawer.closeDrawer(this) } }
+                bind { itemSelected("changeFragment") }
             }.lparams(wrapContent, matchParent) {
-                gravity = GravityCompat.START
+                gravity = NAVIGATION_VIEW_GRAVITY
             }
         }.lparams(matchParent, matchParent)
     }

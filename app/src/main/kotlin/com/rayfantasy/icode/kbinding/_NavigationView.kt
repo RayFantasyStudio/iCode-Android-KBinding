@@ -26,17 +26,16 @@ import rx.Observable
 import rx.Subscriber
 import rx.functions.Action1
 
-fun NavigationView.itemSelected(path: String, callback: (() -> Unit)? = null): PropertyBinding = commandBinding(path, itemSelected(callback), Action1 {})
+fun NavigationView.itemSelected(path: String): PropertyBinding = commandBinding(path, itemSelected(), Action1 {})
 
-fun NavigationView.itemSelected(callback: (() -> Unit)?): Observable<MenuItem> {
-    return Observable.create(NavigationViewItemSelectedOnSubscribe(this, callback))
+fun NavigationView.itemSelected(): Observable<MenuItem> {
+    return Observable.create(NavigationViewItemSelectedOnSubscribe(this))
 }
 
-class NavigationViewItemSelectedOnSubscribe(val view: NavigationView, val callback: (() -> Unit)?) : Observable.OnSubscribe<MenuItem> {
+class NavigationViewItemSelectedOnSubscribe(val view: NavigationView) : Observable.OnSubscribe<MenuItem> {
     override fun call(subscriber: Subscriber<in MenuItem>) {
         Preconditions.checkUiThread()
         val listener = NavigationView.OnNavigationItemSelectedListener {
-            callback?.invoke()
             if (!subscriber.isUnsubscribed) {
                 subscriber.onNext(it)
             }

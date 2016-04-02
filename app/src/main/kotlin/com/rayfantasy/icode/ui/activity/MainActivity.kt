@@ -21,6 +21,7 @@ import android.app.Fragment
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.MenuItem
 import com.benny.library.kbinding.annotation.Command
 import com.benny.library.kbinding.annotation.Property
@@ -53,6 +54,9 @@ class MainActivity : ActivityBase() {
     @delegate:Property
     var fragment by Delegates.property<Fragment>(codeListFragment)
 
+    @delegate:Property
+    var openedDrawer by Delegates.property(Gravity.NO_GRAVITY)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MainActivityUI().setContentView(this).bindTo(this)
@@ -64,6 +68,7 @@ class MainActivity : ActivityBase() {
             R.id.nav_home -> fragment = codeListFragment
             R.id.nav_about -> fragment = aboutFragment
         }
+        openedDrawer = Gravity.NO_GRAVITY
     }
 
     override fun onResume() {
