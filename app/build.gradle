@@ -108,6 +108,9 @@ dependencies {
     compile "com.benny.library:kbinding-adapterview:$kbindingVer"
     compile "com.benny.library:kbinding-support-v4:$kbindingVer"
     kapt "com.benny.library:kbinding-compiler:$kbindingVer"
+
+    //RxBinding
+    compile 'com.jakewharton.rxbinding:rxbinding-design:0.3.0'
 }
 
 kapt {

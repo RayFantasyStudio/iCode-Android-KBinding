@@ -17,36 +17,9 @@
 package com.rayfantasy.icode.kbinding
 
 import android.support.design.widget.NavigationView
-import android.view.MenuItem
 import com.benny.library.kbinding.bind.PropertyBinding
 import com.benny.library.kbinding.bind.commandBinding
-import com.jakewharton.rxbinding.internal.MainThreadSubscription
-import com.jakewharton.rxbinding.internal.Preconditions
-import rx.Observable
-import rx.Subscriber
+import com.jakewharton.rxbinding.support.design.widget.RxNavigationView
 import rx.functions.Action1
 
-fun NavigationView.itemSelected(path: String): PropertyBinding = commandBinding(path, itemSelected(), Action1 {})
-
-fun NavigationView.itemSelected(): Observable<MenuItem> {
-    return Observable.create(NavigationViewItemSelectedOnSubscribe(this))
-}
-
-class NavigationViewItemSelectedOnSubscribe(val view: NavigationView) : Observable.OnSubscribe<MenuItem> {
-    override fun call(subscriber: Subscriber<in MenuItem>) {
-        Preconditions.checkUiThread()
-        val listener = NavigationView.OnNavigationItemSelectedListener {
-            if (!subscriber.isUnsubscribed) {
-                subscriber.onNext(it)
-            }
-            true
-        }
-
-        view.setNavigationItemSelectedListener(listener)
-        subscriber.add(object : MainThreadSubscription() {
-            override fun onUnsubscribe() {
-                view.setNavigationItemSelectedListener(null)
-            }
-        })
-    }
-}
+fun NavigationView.itemSelections(path: String): PropertyBinding = commandBinding(path, RxNavigationView.itemSelections(this), Action1 {})
