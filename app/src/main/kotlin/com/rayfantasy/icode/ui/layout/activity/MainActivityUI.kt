@@ -17,7 +17,6 @@
 package com.rayfantasy.icode.ui.layout.activity
 
 import android.os.Build
-import android.provider.Contacts
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -33,7 +32,7 @@ import com.rayfantasy.icode.theme.colorPrimary
 import com.rayfantasy.icode.theme.colorPrimaryDark
 import com.rayfantasy.icode.theme.observe
 import com.rayfantasy.icode.ui.activity.MainActivity
-import com.rayfantasy.icode.ui.layout.extra.NVhead
+import com.rayfantasy.icode.ui.layout.extra.MainNavigationHearderUI
 import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7.toolbar
 import org.jetbrains.anko.design.coordinatorLayout
@@ -83,6 +82,7 @@ class MainActivityUI : ViewBinderComponent<MainActivity> {
             navigationView {
                 fitsSystemWindows = true
                 inflateMenu(R.menu.nv_menu)
+                addHeaderView(MainNavigationHearderUI().createViewBinder(context, this).bindTo(activity.bindingDisposer, activity))
                 bind { itemSelections("changeFragment") }
             }.lparams(wrapContent, matchParent) {
                 gravity = NAVIGATION_VIEW_GRAVITY
