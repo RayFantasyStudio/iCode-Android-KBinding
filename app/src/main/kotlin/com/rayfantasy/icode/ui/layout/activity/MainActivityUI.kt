@@ -21,13 +21,14 @@ import android.provider.Contacts
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import com.benny.library.kbinding.dsl.TwoWay
 import com.benny.library.kbinding.dsl.bind
 import com.benny.library.kbinding.view.ViewBinderComponent
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.*
+import com.rayfantasy.icode.kbinding.drawerOpen
 import com.rayfantasy.icode.kbinding.fragment
-import com.rayfantasy.icode.kbinding.itemSelected
-import com.rayfantasy.icode.kbinding.openedDrawer
+import com.rayfantasy.icode.kbinding.itemSelections
 import com.rayfantasy.icode.theme.colorPrimary
 import com.rayfantasy.icode.theme.colorPrimaryDark
 import com.rayfantasy.icode.theme.observe
@@ -50,7 +51,7 @@ class MainActivityUI : ViewBinderComponent<MainActivity> {
             val drawer = this
             configuration(sdk = Build.VERSION_CODES.KITKAT) { fitsSystemWindows = false }
             observe(colorPrimaryDark) { setStatusBarBackgroundColor(it) }
-            bind { openedDrawer("openedDrawer") }
+            bind { drawerOpen(NAVIGATION_VIEW_GRAVITY, "drawerOpen", mode = TwoWay) }
 
             coordinatorLayout {
 
@@ -82,7 +83,7 @@ class MainActivityUI : ViewBinderComponent<MainActivity> {
             navigationView {
                 fitsSystemWindows = true
                 inflateMenu(R.menu.nv_menu)
-                bind { itemSelected("changeFragment") }
+                bind { itemSelections("changeFragment") }
             }.lparams(wrapContent, matchParent) {
                 gravity = NAVIGATION_VIEW_GRAVITY
             }

@@ -1,6 +1,4 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'bugly'   /*
+/*
  * Copyright 2015-2016 RayFantasy Studio
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +12,11 @@ apply plugin: 'bugly'   /*
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- */   //添加Bugly插件
+ */
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'bugly'      //添加Bugly插件
 
 def File buglyPropFile = file("../bugly.properties")
 def Properties buglyProps = new Properties()
@@ -106,6 +108,9 @@ dependencies {
     compile "com.benny.library:kbinding-adapterview:$kbindingVer"
     compile "com.benny.library:kbinding-support-v4:$kbindingVer"
     kapt "com.benny.library:kbinding-compiler:$kbindingVer"
+
+    //RxBinding
+    compile 'com.jakewharton.rxbinding:rxbinding-design:0.3.0'
 }
 
 kapt {
