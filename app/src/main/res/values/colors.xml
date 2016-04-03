@@ -32,6 +32,7 @@
     <color name="blue_500">#FF2196F3</color>
     <color name="blue_700">#FF1976D2</color>
     <color name="activity_background">#eeeeee</color>
+    <color name="line">#DDDD</color>
 
     <color name="appbar_overlay_top">#99000000</color>
     <color name="appbar_overlay_bottom">#00000000</color>
