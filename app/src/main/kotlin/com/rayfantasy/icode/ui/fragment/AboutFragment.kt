@@ -20,15 +20,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.rayfantasy.icode.ui.layout.fragment.AboutFragmentUI
-import org.jetbrains.anko.UI
-import org.jetbrains.anko.frameLayout
-import org.jetbrains.anko.textView
+import org.jetbrains.anko.ctx
 
 class AboutFragment : FragmentBase() {
 
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) = UI {
-        AboutFragmentUI().createView(this)
-    }.view
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?)
+            = AboutFragmentUI().createViewBinder(ctx, this).bindTo(this)
 
 }
