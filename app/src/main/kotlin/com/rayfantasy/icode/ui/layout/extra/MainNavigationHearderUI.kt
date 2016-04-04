@@ -29,25 +29,17 @@ import org.jetbrains.anko.*
 
 
 class MainNavigationHearderUI : ViewBinderComponent<NavigationView> {
-    companion object {
-        val ID_USERICON = generateViewId()
-        val ID_NV_BG = generateViewId()
-        val ID_USERNAME = generateViewId()
-    }
 
     override fun builder(): AnkoContext<*>.() -> Unit = {
         verticalLayout {
-            id = ID_NV_BG
             leftPadding = dip(20)
             observe(colorPrimary) { backgroundColor = it }
 
 
             imageView {
-                id = ID_USERICON
                 imageResource = R.mipmap.ic_nv_user
             }.lparams(dip(72), dip(72)) { topMargin = dip(20) }
             textView {
-                id = ID_USERNAME
                 textSize = sp(25).toFloat()
                 setTextColor(R.color.nv_username)
                 text = "未登录"

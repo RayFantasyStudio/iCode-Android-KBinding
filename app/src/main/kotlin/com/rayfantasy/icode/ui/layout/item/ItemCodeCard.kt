@@ -19,6 +19,7 @@ package com.rayfantasy.icode.ui.layout.item
 
 import android.graphics.drawable.Drawable
 import android.support.v4.view.GravityCompat
+import android.support.v7.widget.CardView
 import com.benny.library.kbinding.view.ViewBinderComponent
 import com.like.LikeButton
 import com.rayfantasy.icode.R
@@ -30,17 +31,7 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 
 
-class ItemCodeCard : ViewBinderComponent<ItemCodeCard> {
-    companion object {
-        val ID_USERICON   = generateViewId()
-        val ID_USERNAME   = generateViewId()
-        val ID_TIME       = generateViewId()
-        val ID_TITLE      = generateViewId()
-        val ID_SUBTITLE   = generateViewId()
-        val ID_LIKE       = generateViewId()
-        val ID_LIKECOUNT  = generateViewId()
-        val ID_REPLYCOUNT = generateViewId()
-    }
+class ItemCodeCard : ViewBinderComponent<CardView> {
     override fun builder(): AnkoContext<*>.() -> Unit =  {
 
         cardView  {
@@ -52,7 +43,6 @@ class ItemCodeCard : ViewBinderComponent<ItemCodeCard> {
                     gravity = GravityCompat.START
                     imageView {
                         imageResource = R.mipmap.ic_account_box_black
-                        id = ID_USERICON
                     }.lparams(resources.getDimension(R.dimen.profile_pic_size).toInt(), resources.getDimension(R.dimen.profile_pic_size).toInt()){ centerVertically() }
                     textView {
                         text = "UserName"
@@ -66,7 +56,6 @@ class ItemCodeCard : ViewBinderComponent<ItemCodeCard> {
                     }
                     textView {
                         text        = "Time"
-                        id          = ID_TIME
                     }.lparams(wrapContent, wrapContent){
                         rightMargin = dip(16)
                         marginEnd   = dip(16)
@@ -82,13 +71,11 @@ class ItemCodeCard : ViewBinderComponent<ItemCodeCard> {
                 }.lparams(matchParent,dip(1))
                 verticalLayout{
                     textView {
-                        id = ID_TITLE
                         text = "Title"
                         textSize = dip(7).toFloat()
                         textColor = resources.getColor(R.color.black_overlay)
                     }.lparams(matchParent, wrapContent)
                     textView {
-                        id = ID_SUBTITLE
                         text = "Subtitle"
                         textSize = dip(5).toFloat()
                     }.lparams(matchParent, wrapContent)
@@ -99,14 +86,12 @@ class ItemCodeCard : ViewBinderComponent<ItemCodeCard> {
                 relativeLayout {
                     likeButton {
                         setIconSizeDp(16)
-                        id = ID_LIKE
                     }.lparams(wrapContent, wrapContent) {
                         leftMargin = dip(16)
                         marginStart = dip(15)
 
                     }
                     textView {
-                        id = ID_LIKECOUNT
                         text = "999K"
                     }.lparams(wrapContent,wrapContent){
                         centerVertically()
@@ -114,7 +99,6 @@ class ItemCodeCard : ViewBinderComponent<ItemCodeCard> {
 
                     }
                     textView {
-                        id = ID_REPLYCOUNT
                         text = "999K"
                     }.lparams(wrapContent,wrapContent){
                         centerVertically()

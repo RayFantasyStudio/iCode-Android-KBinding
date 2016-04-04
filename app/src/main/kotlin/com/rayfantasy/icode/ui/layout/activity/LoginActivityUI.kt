@@ -34,12 +34,6 @@ import org.jetbrains.anko.design.coordinatorLayout
 
 
 class LoginActivityUI : ViewBinderComponent<LoginActivityUI> {
-    companion object{
-        val ID_USERNAME = generateViewId()
-        val ID_PWD      = generateViewId()
-        val ID_LOGIN    = generateViewId()
-        val ID_SIGINUP  = generateViewId()
-    }
     override fun builder(): AnkoContext<*>.() -> Unit =  {
         coordinatorLayout {
             appBarLayout(R.style.AppTheme_AppBarOverlay){

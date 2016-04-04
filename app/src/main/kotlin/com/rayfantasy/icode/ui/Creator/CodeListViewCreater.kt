@@ -14,25 +14,19 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.ui.fragment
+package com.rayfantasy.icode.ui.Creator
 
-import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import com.benny.library.kbinding.annotation.Command
-import org.jetbrains.anko.UI
-import org.jetbrains.anko.frameLayout
-import org.jetbrains.anko.textView
+import com.benny.library.autoadapter.viewcreator.ViewCreatorCollection
+import com.benny.library.kbinding.bind.BindingDisposer
+import com.rayfantasy.icode.kbinding.ViewCreator
+import com.rayfantasy.icode.postutil.bean.CodeGood
 
-class CodeListFragment : FragmentBase() {
 
-    @Command
+class CodeListViewCreater( val bindingDisposer: BindingDisposer): ViewCreatorCollection<CodeGood>() {
+    init {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) = UI {
-        frameLayout {
-            textView("Hello KBinding")
-        }
-    }.view
-
+    }
 
 }
