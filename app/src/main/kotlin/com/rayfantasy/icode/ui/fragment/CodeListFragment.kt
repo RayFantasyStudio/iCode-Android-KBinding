@@ -49,15 +49,15 @@ class CodeListFragment : FragmentBase() {
         }
 
     @delegate:Property
-    var codeGoods by Delegates.property<MutableList<CodeGood>>()
+    var codeGoods by Delegates.property<List<CodeGood>>()
+    val updateableCodeGoods = UpdateAbleList(cachedData)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?)
             = CodeListFragmentUI().createViewBinder(ctx, this).bindTo(this)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val list = cachedData
-        if (list.isNotEmpty()) codeGoods = UpdateAbleList(list)
+        if (updateableCodeGoods.isNotEmpty()) codeGoods = updateableCodeGoods
         loadCodeGoods(true, {})
     }
 
@@ -75,10 +75,9 @@ class CodeListFragment : FragmentBase() {
             onSuccess {
                 if (isDetached) return@onSuccess
                 request = null
-                if (codeGoods == null)
-                    codeGoods = UpdateAbleList(it)
-                else
-                    (codeGoods as MutableList<CodeGood>).addAll(it)
+                if (refresh) updateableCodeGoods.clear()
+                updateableCodeGoods.addAll(it)
+                if (updateableCodeGoods.isNotEmpty()) codeGoods = updateableCodeGoods
                 cachedData = it
                 canExecute(true)
             }
