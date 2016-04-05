@@ -14,19 +14,20 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.ui.Creator
+package com.rayfantasy.icode.ui.layout.item
 
-import android.view.View
-import android.view.ViewGroup
-import com.benny.library.autoadapter.viewcreator.ViewCreatorCollection
-import com.benny.library.kbinding.bind.BindingDisposer
-import com.rayfantasy.icode.kbinding.ViewCreator
-import com.rayfantasy.icode.postutil.bean.CodeGood
+import android.view.Gravity
+import com.benny.library.kbinding.adapterview.viewcreator.ItemViewBinderComponent
+import org.jetbrains.anko.*
 
-
-class CodeListViewCreater( val bindingDisposer: BindingDisposer): ViewCreatorCollection<CodeGood>() {
-    init {
-
+class LoadingItemView : ItemViewBinderComponent {
+    override fun builder(): AnkoContext<*>.() -> Unit = {
+        relativeLayout {
+            frameLayout {
+                progressBar {
+                    isIndeterminate = true
+                }.lparams(width = dip(24), height = dip(24)) { gravity = Gravity.CENTER }
+            }.lparams(matchParent, wrapContent)
+        }
     }
-
 }

@@ -21,7 +21,7 @@ import java.util.*
 class UpdateAbleList<E> : LinkedList<E> {
     constructor() : super()
 
-    constructor(collection: MutableCollection<out E>?) : super(collection)
+    constructor(collection: Collection<E>?) : super(collection)
 
     override fun add(element: E): Boolean {
         removeDuplicateElement(element)

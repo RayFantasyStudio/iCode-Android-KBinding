@@ -24,13 +24,21 @@ import com.benny.library.kbinding.converter.EmptyOneWayConverter1
 import com.benny.library.kbinding.converter.OneWayConverter
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.syntaxhighlighter.SyntaxHighlighter
+import com.rayfantasy.icode.util.ms2RelativeDate
 import rx.functions.Action1
 
 fun TextView.codeBlock(vararg paths: String, mode: OneWay = BindingMode.OneWay,
-                   converter: OneWayConverter<*, CodeGood.Block> = EmptyOneWayConverter1()) = oneWayPropertyBinding(paths, codeBlock(this), false, converter)
+                       converter: OneWayConverter<*, CodeGood.Block> = EmptyOneWayConverter1()) = oneWayPropertyBinding(paths, codeBlock(this), false, converter)
 
 private fun codeBlock(tv: TextView) = Action1<CodeGood.Block> {
     tv.text = it.content
     val syntaxGroup = SyntaxHighlighter.Companion.LANGS[it.extra]
     syntaxGroup?.highlight(tv)
+}
+
+fun TextView.time(vararg paths: String, mode: OneWay = BindingMode.OneWay,
+                  converter: OneWayConverter<*, Long> = EmptyOneWayConverter1()) = oneWayPropertyBinding(paths, time(this), false, converter)
+
+private fun time(tv: TextView) = Action1<Long> {
+    tv.text = ms2RelativeDate(tv.context, it)
 }

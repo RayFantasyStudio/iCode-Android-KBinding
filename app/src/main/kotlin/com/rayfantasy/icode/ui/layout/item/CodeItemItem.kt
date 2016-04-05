@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2015-2016 RayFantasy Studio
  *
@@ -17,72 +16,67 @@
 
 package com.rayfantasy.icode.ui.layout.item
 
-import android.graphics.drawable.Drawable
 import android.support.v4.view.GravityCompat
-import android.support.v7.widget.CardView
-import com.benny.library.kbinding.view.ViewBinderComponent
-import com.like.LikeButton
+import com.benny.library.kbinding.adapterview.viewcreator.ItemViewBinderComponent
+import com.benny.library.kbinding.common.bindings.text
+import com.benny.library.kbinding.common.bindings.textColorResource
+import com.benny.library.kbinding.dsl.bind
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.extension.generateViewId
-import com.rayfantasy.icode.extension.likeButton
-import com.rayfantasy.icode.extension.lparams
-import com.rayfantasy.icode.theme.observe
+import com.rayfantasy.icode.extension.*
+import com.rayfantasy.icode.kbinding.time
 import org.jetbrains.anko.*
-import org.jetbrains.anko.cardview.v7.cardView
 
+class CodeItemItem : ItemViewBinderComponent {
+    override fun builder(): AnkoContext<*>.() -> Unit = {
 
-class ItemCodeCard : ViewBinderComponent<CardView> {
-    override fun builder(): AnkoContext<*>.() -> Unit =  {
-
-        cardView  {
-
-            setCardBackgroundColor(getResources().getColor(R.color.cardview_light_background))
+        cardView(R.style.FullWidthCardView) {
+            setCardBackgroundColor(color(R.color.cardview_light_background))
             verticalLayout {
                 weightSum = 1.toFloat()
+                dividerDrawable = drawable(R.drawable.divider_line)
                 relativeLayout {
                     gravity = GravityCompat.START
                     imageView {
                         imageResource = R.mipmap.ic_account_box_black
-                    }.lparams(resources.getDimension(R.dimen.profile_pic_size).toInt(), resources.getDimension(R.dimen.profile_pic_size).toInt()){ centerVertically() }
-                    textView {
-                        text = "UserName"
+                    }.lparams(dimen(R.dimen.profile_pic_size), dimen(R.dimen.profile_pic_size)) { centerVertically() }
 
-                        textSize    = dip(6).toFloat()
-                    }.lparams(wrapContent, wrapContent){
-                        leftMargin  = dip(76)
+                    // username
+                    textView {
+                        bind { text("username") }
+                        textSize = sp(6).toFloat()
+                    }.lparams(wrapContent, wrapContent) {
+                        leftMargin = dip(76)
                         //topMargin   = dip(16)
                         rightMargin = dip(100)
                         centerVertically()
                     }
+                    // time
                     textView {
-                        text        = "Time"
-                    }.lparams(wrapContent, wrapContent){
+                        bind { time("updateAt") }
+                    }.lparams(wrapContent, wrapContent) {
                         rightMargin = dip(16)
-                        marginEnd   = dip(16)
+                        marginEnd = dip(16)
                         alignParentEnd()
                         alignParentRight()
                         centerVertically()
-
                     }
 
-                }.lparams(matchParent, wrapContent){ bottomMargin = dip(4) }
-                linearLayout {
-                    backgroundColor = resources.getColor(R.color.line)
-                }.lparams(matchParent,dip(1))
-                verticalLayout{
+                }.lparams(matchParent, wrapContent) { bottomMargin = dip(4) }
+
+                verticalLayout {
+                    // Title
                     textView {
-                        text = "Title"
-                        textSize = dip(7).toFloat()
-                        textColor = resources.getColor(R.color.black_overlay)
+                        bind { text("title") }
+                        textSize = sp(7).toFloat()
+                        textColorResource = R.color.black_overlay
                     }.lparams(matchParent, wrapContent)
+                    // Sub Title
                     textView {
-                        text = "Subtitle"
+                        bind { text("subtitle") }
                         textSize = dip(5).toFloat()
                     }.lparams(matchParent, wrapContent)
-                }.lparams(matchParent,matchParent){bottomMargin = dip(3) }
-                linearLayout {
-                    backgroundColor = resources.getColor(R.color.line)
-                }.lparams(matchParent,dip(1))
+                }.lparams(matchParent, matchParent) { bottomMargin = dip(3) }
+
                 relativeLayout {
                     likeButton {
                         setIconSizeDp(16)
@@ -91,16 +85,18 @@ class ItemCodeCard : ViewBinderComponent<CardView> {
                         marginStart = dip(15)
 
                     }
+                    // Favorite Count
                     textView {
-                        text = "999K"
-                    }.lparams(wrapContent,wrapContent){
+                        bind { text("favorite") }
+                    }.lparams(wrapContent, wrapContent) {
                         centerVertically()
                         leftMargin = dip(45)
 
                     }
+                    // Reply Count
                     textView {
-                        text = "999K"
-                    }.lparams(wrapContent,wrapContent){
+                        bind { text("reply") }
+                    }.lparams(wrapContent, wrapContent) {
                         centerVertically()
                         alignParentRight()
 
@@ -113,7 +109,7 @@ class ItemCodeCard : ViewBinderComponent<CardView> {
                 leftMargin = dip(16)
                 rightMargin = dip(16)
             }
-        }.lparams(matchParent, wrapContent) {  }
+        }.lparams(matchParent, wrapContent) { }
     }
 
 }
