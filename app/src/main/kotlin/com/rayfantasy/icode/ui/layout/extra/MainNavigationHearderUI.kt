@@ -21,6 +21,7 @@ package com.rayfantasy.icode.ui.layout.extra
 import android.support.design.widget.NavigationView
 import com.benny.library.kbinding.view.ViewBinderComponent
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.extension.color
 import com.rayfantasy.icode.extension.generateViewId
 import com.rayfantasy.icode.extension.lparams
 import com.rayfantasy.icode.theme.colorPrimary
@@ -40,8 +41,8 @@ class MainNavigationHearderUI : ViewBinderComponent<NavigationView> {
                 imageResource = R.mipmap.ic_nv_user
             }.lparams(dip(72), dip(72)) { topMargin = dip(20) }
             textView {
-                textSize = sp(25).toFloat()
-                setTextColor(R.color.nv_username)
+                textSize = sp(12).toFloat()
+                setTextColor(color(R.color.nv_username))
                 text = "未登录"
             }.lparams(matchParent, wrapContent) { topMargin = dip(20) }
         }.lparams(matchParent, dip(211))

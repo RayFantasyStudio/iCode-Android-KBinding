@@ -109,7 +109,7 @@ class CodeItemItem : ItemViewBinderComponent {
                 leftMargin = dip(16)
                 rightMargin = dip(16)
             }
-        }.lparams(matchParent, wrapContent) { }
+        }.lparams(matchParent, wrapContent) { bottomMargin = dip(4) }
     }
 
 }

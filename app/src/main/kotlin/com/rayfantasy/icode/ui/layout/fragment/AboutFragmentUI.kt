@@ -38,13 +38,12 @@ class AboutFragmentUI() : ViewBinderComponent<AboutFragment> {
 
             }
             textView {
-                text = "NULL"
+                text = resources.getText(R.string.app_name_cn)
                 gravity = Gravity.CENTER
                 textSize = sp(16).toFloat()
-                //getStringResources(activity,R.string.app_name_cn)
             }.lparams(matchParent, wrapContent)
             textView {
-                text = "NULL"
+                text = resources.getText(R.string.version)
                 gravity = Gravity.CENTER
                 textSize = sp(12).toFloat()
                 TextViewCompat.setTextAppearance(this, android.R.attr.textAppearanceMedium)

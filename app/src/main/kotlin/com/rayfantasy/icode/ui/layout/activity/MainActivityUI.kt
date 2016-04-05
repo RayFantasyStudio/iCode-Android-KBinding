@@ -66,7 +66,7 @@ class MainActivityUI : ViewBinderComponent<MainActivity> {
                                 activity, drawer, this, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
                         drawer.addDrawerListener(toggle)
                         toggle.syncState()
-                    }.lparams(matchParent, wrapContent)
+                    }.lparams(matchParent, wrapContent){scrollFlags = 0 }
 
                 }.lparams(matchParent, wrapContent)
 
