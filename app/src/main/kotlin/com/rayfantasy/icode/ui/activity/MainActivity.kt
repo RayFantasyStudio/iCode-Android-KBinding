@@ -141,7 +141,7 @@ class MainActivity : ActivityBase() {
         requestQueue.add(request)
     }
     @Command
-    private fun OpenWeb() {
+     fun OpenWeb() {
         var uri = Uri.parse("http://www.rayfantasy.com")
         var intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)

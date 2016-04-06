@@ -28,10 +28,10 @@ class CodeGoodViewModel : ItemViewModel<CodeGood>() {
     var codeGood by Delegates.property<CodeGood>()
 
     @delegate:DependencyProperty("codeGood")
-    val favorite by Delegates.property { codeGood?.favorite.toString() }
+    val favorite by Delegates.property { "被收藏${codeGood?.favorite.toString()}次" }
 
     @delegate:DependencyProperty("codeGood")
-    val reply by Delegates.property { codeGood?.reply.toString() }
+    val reply by Delegates.property { "共${codeGood?.reply.toString()}条回复" }
 
     override fun onDataChange(data: CodeGood?) {
         codeGood = data

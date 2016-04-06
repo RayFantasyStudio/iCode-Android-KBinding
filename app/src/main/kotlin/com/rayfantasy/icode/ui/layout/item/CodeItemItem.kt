@@ -21,6 +21,7 @@ import com.benny.library.kbinding.adapterview.viewcreator.ItemViewBinderComponen
 import com.benny.library.kbinding.common.bindings.text
 import com.benny.library.kbinding.common.bindings.textColorResource
 import com.benny.library.kbinding.dsl.bind
+import com.like.LikeButton
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.*
 import com.rayfantasy.icode.kbinding.time
@@ -45,7 +46,7 @@ class CodeItemItem : ItemViewBinderComponent {
                         bind { text("username") }
                         textSize = sp(6).toFloat()
                     }.lparams(wrapContent, wrapContent) {
-                        leftMargin = dip(76)
+                        leftMargin = dip(40)
                         //topMargin   = dip(16)
                         rightMargin = dip(100)
                         centerVertically()
@@ -54,7 +55,7 @@ class CodeItemItem : ItemViewBinderComponent {
                     textView {
                         bind { time("updateAt") }
                     }.lparams(wrapContent, wrapContent) {
-                        rightMargin = dip(16)
+                       // rightMargin = dip(16)
                         marginEnd = dip(16)
                         alignParentEnd()
                         alignParentRight()
@@ -62,7 +63,7 @@ class CodeItemItem : ItemViewBinderComponent {
                     }
 
                 }.lparams(matchParent, wrapContent) { bottomMargin = dip(4) }
-
+                linearLayout { backgroundColor = resources.getColor(R.color.line) }.lparams(matchParent,dip(1))
                 verticalLayout {
                     // Title
                     textView {
@@ -76,13 +77,17 @@ class CodeItemItem : ItemViewBinderComponent {
                         textSize = dip(5).toFloat()
                     }.lparams(matchParent, wrapContent)
                 }.lparams(matchParent, matchParent) { bottomMargin = dip(3) }
-
+                linearLayout { backgroundColor = resources.getColor(R.color.line) }.lparams(matchParent,dip(1))
                 relativeLayout {
                     likeButton {
-                        setIconSizeDp(16)
+                        setIconSizePx(40)
+
+
                     }.lparams(wrapContent, wrapContent) {
-                        leftMargin = dip(16)
-                        marginStart = dip(15)
+                       // leftMargin = dip(16)
+                       // marginStart = dip(15)
+                        centerVertically()
+
 
                     }
                     // Favorite Count

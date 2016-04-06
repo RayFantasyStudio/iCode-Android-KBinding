@@ -27,7 +27,10 @@ class LoadingItemView : ItemViewBinderComponent {
                 progressBar {
                     isIndeterminate = true
                 }.lparams(width = dip(24), height = dip(24)) { gravity = Gravity.CENTER }
-            }.lparams(matchParent, wrapContent)
+            }.lparams(matchParent, wrapContent){
+                topMargin = dip(4)
+                bottomMargin = dip(4)
+            }
         }
     }
 }
