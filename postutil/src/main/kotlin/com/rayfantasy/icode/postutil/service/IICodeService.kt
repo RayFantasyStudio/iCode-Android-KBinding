@@ -14,12 +14,14 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.kbinding
+package com.rayfantasy.icode.postutil.service
 
-import android.support.design.widget.NavigationView
-import com.benny.library.kbinding.bind.PropertyBinding
-import com.benny.library.kbinding.bind.commandBinding
-import com.jakewharton.rxbinding.support.design.widget.RxNavigationView
-import rx.functions.Action1
+import com.rayfantasy.icode.postutil.Urls
+import com.rayfantasy.icode.postutil.bean.UpdateInfo
+import retrofit2.http.GET
+import rx.Observable
 
-fun NavigationView.itemSelections(path: String): PropertyBinding = commandBinding(path, RxNavigationView.itemSelections(this), Action1 {})
+interface IICodeService {
+    @GET(Urls.PATH_UPDATE_INFO)
+    fun updateInfo(): Observable<UpdateInfo>
+}

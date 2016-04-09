@@ -71,6 +71,16 @@ dependencies {
     compile "com.github.Raizlabs.DBFlow:dbflow-core:$dbFlowVer"
     compile "com.github.Raizlabs.DBFlow:dbflow:$dbFlowVer"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // ReactiveX
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxkotlin:0.55.0'
+
+    // retrofit2
+    def retrofitVer = '2.0.1'
+    compile "com.squareup.retrofit2:retrofit:$retrofitVer"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVer"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVer"
 }
 buildscript {
     ext.kotlin_version = '1.0.0'

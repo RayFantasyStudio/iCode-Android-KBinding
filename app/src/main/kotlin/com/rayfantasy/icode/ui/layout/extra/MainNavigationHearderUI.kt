@@ -19,6 +19,8 @@ package com.rayfantasy.icode.ui.layout.extra
 
 
 import android.support.design.widget.NavigationView
+import com.benny.library.kbinding.common.bindings.click
+import com.benny.library.kbinding.dsl.bind
 import com.benny.library.kbinding.view.ViewBinderComponent
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.color
@@ -35,10 +37,9 @@ class MainNavigationHearderUI : ViewBinderComponent<NavigationView> {
         verticalLayout {
             leftPadding = dip(20)
             observe(colorPrimary) { backgroundColor = it }
-
-
             imageView {
                 imageResource = R.mipmap.ic_nv_user
+                bind { click("toAccount") }
             }.lparams(dip(72), dip(72)) { topMargin = dip(20) }
             textView {
                 textSize = sp(12).toFloat()

@@ -19,44 +19,43 @@ package com.rayfantasy.icode.ui.activity
 import android.app.ActivityManager
 import android.app.DownloadManager
 import android.app.Fragment
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import com.android.volley.NetworkResponse
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.HttpHeaderParser
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.benny.library.kbinding.annotation.Command
 import com.benny.library.kbinding.annotation.Property
 import com.benny.library.kbinding.view.setContentView
 import com.rayfantasy.icode.BuildConfig
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.extension.alert
-import com.rayfantasy.icode.postutil.CHARSET
-import com.rayfantasy.icode.postutil.extension.fromJson
+import com.rayfantasy.icode.extension.rx.alertObservable
+import com.rayfantasy.icode.extension.rx.filterSingle
 import com.rayfantasy.icode.postutil.PostUtil
-import com.rayfantasy.icode.postutil.URL_UPDATE_INFO
 import com.rayfantasy.icode.postutil.bean.UpdateInfo
+import com.rayfantasy.icode.postutil.service.ICodeService
 import com.rayfantasy.icode.theme.ThemeModel
 import com.rayfantasy.icode.ui.fragment.AboutFragment
 import com.rayfantasy.icode.ui.fragment.CodeListFragment
 import com.rayfantasy.icode.ui.fragment.FavoriteFragment
 import com.rayfantasy.icode.ui.layout.activity.MainActivityUI
 import com.rayfantasy.icode.util.DownloadsUtil
-import org.jetbrains.anko.async
 import org.jetbrains.anko.configuration
+import org.jetbrains.anko.startActivity
+import rx.android.schedulers.AndroidSchedulers
+import rx.lang.kotlin.observable
+import rx.schedulers.Schedulers
 import java.io.File
+import java.lang.ref.WeakReference
 import kotlin.properties.Delegates
 
 class MainActivity : ActivityBase() {
     companion object {
         const val TAG_CHECK_UPDATE = "tag_check_update"
     }
+
     private val icon by lazy {
         BitmapFactory.decodeResource(resources, R.mipmap.ic_task_desc)
     }
@@ -92,56 +91,57 @@ class MainActivity : ActivityBase() {
             R.id.nav_home -> fragment = codeListFragment
             R.id.nav_about -> fragment = aboutFragment
             R.id.nav_favo -> fragment = favoriteFragment
-            R.id.nav_update -> checkUpdate()
+            R.id.nav_update -> checkAndUpdate()
             R.id.nav_homepage -> OpenWeb()
         }
         drawerOpen = false
     }
 
-    private val requestQueue by lazy { Volley.newRequestQueue(this) }
+    @Command
+    fun toAccount(){
+        if (PostUtil.user == null){
+            startActivity<LoginActivity>()
+        }
+    }
+
+    private fun checkAndUpdate() {
+        ICodeService.updateInfo()
+                .filterSingle {
+                    it.versionCode > BuildConfig.VERSION_CODE
+                }
+                .flatMap { info ->
+                    alertObservable<UpdateInfo> (getString(R.string.msg_new_version, info.info, info.size),
+                            getString(R.string.title_new_version, info.versionName)) {
+                        neutralButton(android.R.string.cancel)
+                        positiveButton(R.string.positive_new_version) { it.onNext(info) }
+                        show()
+                    }
+                }
+                .flatMap {
+                    val title = getString(R.string.title_new_version, it.versionName)
+                    val downloadInfo = DownloadsUtil.add(applicationContext, title, it.url, null)
+                    val contextRef = WeakReference<Context>(applicationContext)
+                    observable<DownloadsUtil.DownloadInfo> {
+                        var info: DownloadsUtil.DownloadInfo
+                        do {
+                            Thread.sleep(500)
+                            info = DownloadsUtil.getById(contextRef.get(), downloadInfo.id)
+                            if (isFinishing) break
+                        } while ((info.status and (DownloadManager.STATUS_PENDING or
+                                DownloadManager.STATUS_PAUSED or DownloadManager.STATUS_RUNNING)) != 0)
+                        it.onNext(info)
+                    }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                }
+                .subscribe {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setDataAndType(Uri.fromFile(File(it.localFilename)), DownloadsUtil.MIME_TYPE_APK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    applicationContext.startActivity(intent)
+                }
+    }
 
     @Command
-    fun checkUpdate() {
-        val request = object : StringRequest(Request.Method.GET, URL_UPDATE_INFO, {
-            val updateInfo = PostUtil.gson.fromJson<UpdateInfo>(it)
-            if (updateInfo.versionCode > BuildConfig.VERSION_CODE) {
-                alert {
-                    val title = getString(R.string.title_new_version, updateInfo.versionName)
-                    title(title)
-                    message(getString(R.string.msg_new_version, updateInfo.info, updateInfo.size))
-                    positiveButton(R.string.positive_new_version) {
-                        val downloadInfo = DownloadsUtil.add(applicationContext, title, updateInfo.url, null)
-                        async() {
-                            val applicationContext = applicationContext
-                            var info: DownloadsUtil.DownloadInfo
-                            do {
-                                Thread.sleep(500)
-                                info = DownloadsUtil.getById(applicationContext, downloadInfo.id)
-                                if (isFinishing) break
-                            } while ((info.status and (DownloadManager.STATUS_PENDING or
-                                    DownloadManager.STATUS_PAUSED or DownloadManager.STATUS_RUNNING)) != 0)
-                            runOnUiThread {
-                                val intent = Intent(Intent.ACTION_VIEW)
-                                intent.setDataAndType(Uri.fromFile(File(info.localFilename)), DownloadsUtil.MIME_TYPE_APK)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                applicationContext.startActivity(intent)
-                            }
-                        }
-                    }
-                    neutralButton(android.R.string.cancel)
-                    show()
-                }
-            }
-        }, { it.printStackTrace() }) {
-            override fun parseNetworkResponse(response: NetworkResponse?) = response?.let {
-                Response.success(String(response.data, CHARSET), HttpHeaderParser.parseCacheHeaders(response))
-            }
-        }
-        request.tag = TAG_CHECK_UPDATE
-        requestQueue.add(request)
-    }
-    @Command
-     fun OpenWeb() {
+    fun OpenWeb() {
         var uri = Uri.parse("http://www.rayfantasy.com")
         var intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
@@ -167,7 +167,6 @@ class MainActivity : ActivityBase() {
         configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
             ThemeModel.colorPrimaryDark.listeners.remove(colorPrimaryDarkCallback)
         }
-        requestQueue.cancelAll(TAG_CHECK_UPDATE)
     }
 
 }

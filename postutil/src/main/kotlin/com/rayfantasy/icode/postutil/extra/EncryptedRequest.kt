@@ -20,7 +20,7 @@ import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
-import com.rayfantasy.icode.postutil.CHARSET
+import com.rayfantasy.icode.postutil.Constants.CHARSET
 import com.rayfantasy.icode.postutil.exception.PostException
 import com.rayfantasy.icode.postutil.extension.i
 import com.rayfantasy.icode.postutil.extension.v

@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.kbinding
+package com.rayfantasy.icode.extension.kbinding
 
 import android.app.Activity
 import android.app.Fragment

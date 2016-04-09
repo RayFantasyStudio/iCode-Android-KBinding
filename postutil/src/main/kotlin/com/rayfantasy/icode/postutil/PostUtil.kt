@@ -81,7 +81,7 @@ object PostUtil {
         val data = JSONObject()
         data.put("codeGood", gson.toJson(codeGood))
         data.put("key", key)
-        val request = EncryptedRequest(URL_ADD_CODEGOOD, data.toString(), { listener.onSuccess() },
+        val request = EncryptedRequest(Urls.URL_ADD_CODEGOOD, data.toString(), { listener.onSuccess() },
                 listener._onFailed)
         requestQueue.add(request)
         return request
@@ -96,7 +96,7 @@ object PostUtil {
         val data = JSONObject()
         data.put("id", id)
         data.put("key", key)
-        val request = EncryptedRequest(URL_DEL_CODEGOOD, data.toString(), { listener.onSuccess() }, listener._onFailed)
+        val request = EncryptedRequest(Urls.URL_DEL_CODEGOOD, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -111,7 +111,7 @@ object PostUtil {
         val listener = OnSuccessListener1<MutableList<CodeGood>>().apply(init)
         val data = JSONObject()
         data.put("condition", condition)
-        val request = EncryptedRequest(URL_FIND_CODEGOOD, data.toString(), {
+        val request = EncryptedRequest(Urls.URL_FIND_CODEGOOD, data.toString(), {
             try {
                 val codeGoods = gson.fromJson<MutableList<CodeGood>>(it!!)
                 listener.onSuccess(codeGoods)
@@ -133,7 +133,7 @@ object PostUtil {
         val listener = OnSuccessListener1<String?>().apply(init)
         val data = JSONObject()
         data.put("id", id)
-        val request = EncryptedRequest(URL_LOAD_CODE_CONTENT, data.toString(), listener._onSuccess, listener._onFailed)
+        val request = EncryptedRequest(Urls.URL_LOAD_CODE_CONTENT, data.toString(), listener._onSuccess, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -154,7 +154,7 @@ object PostUtil {
         val data = JSONObject()
         data.put("reply", gson.toJson(reply))
         data.put("key", key)
-        val request = EncryptedRequest(URL_ADD_REPLY, data.toString(), { listener.onSuccess() }, listener._onFailed)
+        val request = EncryptedRequest(Urls.URL_ADD_REPLY, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -168,7 +168,7 @@ object PostUtil {
         val data = JSONObject()
         data.put("id", gson.toJson(id))
         data.put("key", key)
-        val request = EncryptedRequest(URL_DEL_REPLY, data.toString(), { listener.onSuccess() }, listener._onFailed)
+        val request = EncryptedRequest(Urls.URL_DEL_REPLY, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
 
@@ -184,7 +184,7 @@ object PostUtil {
         val listener = OnSuccessListener1<MutableList<Reply>>().apply(init)
         val data = JSONObject()
         data.put("condition", condition)
-        val request = EncryptedRequest(URL_FIND_REPLY, data.toString(), {
+        val request = EncryptedRequest(Urls.URL_FIND_REPLY, data.toString(), {
             try {
                 val replies = gson.fromJson<MutableList<Reply>>(it!!)
                 listener.onSuccess(replies)
@@ -206,7 +206,7 @@ object PostUtil {
         data.put("userId", user!!.id)
         data.put("key", key)
         data.put("goodId", goodId)
-        val request = EncryptedRequest(URL_ADD_FAVORITE, data.toString(), { listener.onSuccess() }, listener._onFailed)
+        val request = EncryptedRequest(Urls.URL_ADD_FAVORITE, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -220,7 +220,7 @@ object PostUtil {
         val data = JSONObject()
         data.put("userId", user!!.id)
         data.put("key", key)
-        val request = EncryptedRequest(URL_FIND_FAVORITE, data.toString(), {
+        val request = EncryptedRequest(Urls.URL_FIND_FAVORITE, data.toString(), {
             try {
                 listener.onSuccess(gson.fromJson<MutableList<Favorite>>(it!!))
             } catch(e: Exception) {
@@ -241,7 +241,7 @@ object PostUtil {
         data.put("userId", user!!.id)
         data.put("key", key)
         data.put("goodId", goodId)
-        val request = EncryptedRequest(URL_DEL_FAVORITE, data.toString(), { listener.onSuccess() }, listener._onFailed)
+        val request = EncryptedRequest(Urls.URL_DEL_FAVORITE, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -254,7 +254,7 @@ object PostUtil {
         val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         val imei = tm.deviceId
         data.put("imei", imei)
-        val request = EncryptedRequest(URL_ADDUSER, data.toString(), { loginUser(username, password, init) }, listener._onFailed)
+        val request = EncryptedRequest(Urls.URL_ADDUSER, data.toString(), { loginUser(username, password, init) }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -264,7 +264,7 @@ object PostUtil {
         val data = JSONObject()
         data.put("username", username)
         data.put("password", password)
-        val request = EncryptedRequest(URL_LOGIN, data.toString(), {
+        val request = EncryptedRequest(Urls.URL_LOGIN, data.toString(), {
             try {
                 val json = JSONObject(it)
                 key = json.getString("key")
@@ -272,7 +272,7 @@ object PostUtil {
                     user = gson.fromJson<User>(json.getString("user"))
                     saveUserInfo()
                     listener.onSuccess(user!!)
-                    broadcastManager.sendBroadcast(Intent(ACTION_USER_STATE_CHANGED))
+                    broadcastManager.sendBroadcast(Intent(Constants.ACTION_USER_STATE_CHANGED))
                 } else
                     listener.onFailed(PostException("登陆失败"), -3)
             } catch (e: JSONException) {
@@ -293,7 +293,7 @@ object PostUtil {
         data.put("oldPwd", oldPwd)
         data.put("username", user!!.username)
         data.put("newPwd", newPwd)
-        val request = EncryptedRequest(URL_RESET_PWD, data.toString(), {
+        val request = EncryptedRequest(Urls.URL_RESET_PWD, data.toString(), {
             loginUser(user!!.username,
                     newPwd, init)
         }, listener._onFailed)
@@ -302,7 +302,7 @@ object PostUtil {
     }
 
     fun getProfilePicUrl(username: String): String {
-        return URL_PROFILE_PIC + username
+        return Urls.URL_PROFILE_PIC + username
     }
 
     fun uploadProfilePic(pic: File, init: OnSuccessAndProgressListener.() -> Unit): RequestHandle? {
@@ -317,12 +317,12 @@ object PostUtil {
             try {
                 params.put("profilePic", pic)
                 params.put("data", base64Encode(RSAUtils.encryptByPublicKey(
-                        (key!! + user!!.username).toByteArray(CHARSET), RSA_KEY)))
+                        (key!! + user!!.username).toByteArray(Constants.CHARSET), RSA_KEY)))
             } catch (e: Exception) {
                 listener.onFailed(e, -2)
                 return null
             }
-            return client.post(URL_UPLOAD_PROFILE_PIC, params, object : AsyncHttpResponseHandler() {
+            return client.post(Urls.URL_UPLOAD_PROFILE_PIC, params, object : AsyncHttpResponseHandler() {
 
                 override fun onSuccess(statusCode: Int, headers: Array<Header>,
                                        responseBody: ByteArray) {
@@ -330,7 +330,7 @@ object PostUtil {
                         val rc = Integer.parseInt(String(responseBody).trim { it <= ' ' })
                         if (rc == 0) {
                             listener.onSuccess()
-                            broadcastManager.sendBroadcast(Intent(ACTION_USER_STATE_CHANGED))
+                            broadcastManager.sendBroadcast(Intent(Constants.ACTION_USER_STATE_CHANGED))
                         } else
                             listener.onFailed(PostException("服务器报告异常"), rc)
                     } catch (e: Exception) {
@@ -362,7 +362,7 @@ object PostUtil {
         preferences.edit().remove("user_key").remove("user_name").remove("user_id").remove("user_createat").apply()
         user = null
         key = null
-        broadcastManager.sendBroadcast(Intent(ACTION_USER_STATE_CHANGED))
+        broadcastManager.sendBroadcast(Intent(Constants.ACTION_USER_STATE_CHANGED))
     }
 
     private fun saveUserInfo() {
