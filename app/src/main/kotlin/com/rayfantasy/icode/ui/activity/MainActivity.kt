@@ -103,6 +103,7 @@ class MainActivity : ActivityBase() {
             startActivity<LoginActivity>()
         }
     }
+    
 
     private fun checkAndUpdate() {
         ICodeService.updateInfo()
