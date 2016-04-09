@@ -21,10 +21,9 @@ import com.benny.library.kbinding.adapterview.viewcreator.ItemViewBinderComponen
 import com.benny.library.kbinding.common.bindings.text
 import com.benny.library.kbinding.common.bindings.textColorResource
 import com.benny.library.kbinding.dsl.bind
-import com.like.LikeButton
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.*
-import com.rayfantasy.icode.kbinding.time
+import com.rayfantasy.icode.extension.kbinding.time
 import org.jetbrains.anko.*
 
 class CodeItemItem : ItemViewBinderComponent {

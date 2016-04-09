@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.kbinding
+package com.rayfantasy.icode.extension.kbinding
 
 import android.support.v4.widget.DrawerLayout
 import com.benny.library.kbinding.bind.OneWay

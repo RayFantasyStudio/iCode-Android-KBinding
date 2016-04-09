@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.kbinding
+package com.rayfantasy.icode.extension.kbinding
 
 import android.widget.TextView
 import com.benny.library.kbinding.bind.BindingMode

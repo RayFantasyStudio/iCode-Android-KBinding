@@ -25,9 +25,9 @@ import com.benny.library.kbinding.dsl.bind
 import com.benny.library.kbinding.view.ViewBinderComponent
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.*
-import com.rayfantasy.icode.kbinding.drawerOpen
-import com.rayfantasy.icode.kbinding.fragment
-import com.rayfantasy.icode.kbinding.itemSelections
+import com.rayfantasy.icode.extension.kbinding.drawerOpen
+import com.rayfantasy.icode.extension.kbinding.fragment
+import com.rayfantasy.icode.extension.kbinding.itemSelections
 import com.rayfantasy.icode.theme.colorPrimary
 import com.rayfantasy.icode.theme.colorPrimaryDark
 import com.rayfantasy.icode.theme.observe
